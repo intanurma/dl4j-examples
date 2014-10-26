@@ -2,6 +2,7 @@ package org.deeplearning4j.word2vec;
 
 import org.deeplearning4j.models.word2vec.VocabWord;
 import org.deeplearning4j.models.word2vec.Word2Vec;
+import org.deeplearning4j.models.word2vec.loader.Word2VecLoader;
 import org.deeplearning4j.models.word2vec.wordstore.VocabCache;
 import org.deeplearning4j.models.word2vec.wordstore.inmemory.InMemoryLookupCache;
 import org.deeplearning4j.plot.Tsne;
@@ -57,10 +58,10 @@ public class Word2VecRawExample {
             }
         });
 
-        InMemoryLookupCache cache = new InMemoryLookupCache(100,false);
+        InMemoryLookupCache cache = new InMemoryLookupCache(300,false);
         Word2Vec vec = new Word2Vec.Builder()
-                .minWordFrequency(1)
-                .vocabCache(cache).iterations(5).learningRate(2.5e-2)
+                .minWordFrequency(1).batchSize(500)
+                .vocabCache(cache).iterations(1).learningRate(2.5e-2)
                 .iterate(iter).tokenizerFactory(t).build();
         vec.fit();
 
@@ -73,7 +74,7 @@ public class Word2VecRawExample {
                 .learningRate(500).useAdaGrad(false)
                 .normalize(false).usePca(false).build();
         cache.plotVocab(tsne);
-        InMemoryLookupCache.writeTsneFormat(vec,tsne.getY(),new File("coords.csv"));
+        Word2VecLoader.writeTsneFormat(vec, tsne.getY(), new File("coords.csv"));
 
         for(VocabWord word : cache.vocabWords()) {
             System.out.println("Word " + word.getWord() + " codes " + Arrays.toString(word.getCodes()) + " points " + Arrays.toString(word.getPoints()) + " code length " + word.getCodeLength() + " word freq " + word.getWordFrequency());
