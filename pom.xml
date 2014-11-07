@@ -3,14 +3,28 @@
     <parent>
         <groupId>org.deeplearning4j</groupId>
         <artifactId>deeplearning4j-parent</artifactId>
-        <version>0.0.3.2.4-SNAPSHOT</version>
+        <version>0.0.3.2.3-SNAPSHOT</version>
     </parent>
     <artifactId>deeplearning4j-examples</artifactId>
     <name>DeepLearning4j Examples</name>
     <description>Examples of training different data sets</description>
     <properties>
-        <nd4j.version>0.0.3.5.2</nd4j.version>
+        <nd4j.version>0.0.3.5.3-SNAPSHOT</nd4j.version>
     </properties>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>sonatype-nexus-snapshots</id>
+            <name>Sonatype Nexus snapshot repository</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>nexus-releases</id>
+            <name>Nexus Release Repository</name>
+            <url>http://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
     <dependencyManagement>
         <dependencies>
             <dependency>

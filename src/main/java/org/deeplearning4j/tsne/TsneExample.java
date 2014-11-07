@@ -16,6 +16,7 @@ public class TsneExample {
         Tsne tsne = new Tsne.Builder().setMaxIter(10000)
                 .learningRate(500).useAdaGrad(false)
                 .normalize(false).usePca(false).build();
+
         MnistDataFetcher fetcher = new MnistDataFetcher(true);
         fetcher.fetch(10);
         DataSet d2 = fetcher.next();

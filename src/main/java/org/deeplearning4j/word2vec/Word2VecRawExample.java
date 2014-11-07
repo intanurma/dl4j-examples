@@ -58,21 +58,24 @@ public class Word2VecRawExample {
             }
         });
 
-        InMemoryLookupCache cache = new InMemoryLookupCache(300,false);
-        Word2Vec vec = new Word2Vec.Builder()
-                .minWordFrequency(1).batchSize(500)
-                .vocabCache(cache).iterations(1).learningRate(2.5e-2)
+        int layerSize = 100;
+
+        Word2Vec vec = new Word2Vec.Builder().sampling(1e-5)
+                .minWordFrequency(1).batchSize(100).useAdaGrad(false).layerSize(layerSize)
+                .iterations(5).learningRate(0.025).minLearningRate(1e-2)
                 .iterate(iter).tokenizerFactory(t).build();
         vec.fit();
 
+
         double sim = vec.similarity("day","night");
-        Collection<String> similar = vec.wordsNearest("day",10);
+        Collection<String> similar = vec.wordsNearest("day",20);
         System.out.println(similar);
 
         //vec.plotTsne();
         Tsne tsne = new Tsne.Builder().setMaxIter(200)
                 .learningRate(500).useAdaGrad(false)
                 .normalize(false).usePca(false).build();
+        VocabCache cache = vec.getCache();
         cache.plotVocab(tsne);
         Word2VecLoader.writeTsneFormat(vec, tsne.getY(), new File("coords.csv"));
 

@@ -46,7 +46,8 @@ public class Word2VecExample {
     public void train() throws Exception {
         VocabCache cache;
         if(vec == null && !new File(VEC_PATH).exists()) {
-            cache = new InMemoryLookupCache(100,false,0.025f);
+            cache = new InMemoryLookupCache.Builder()
+                    .lr(2e-5).vectorLength(100).build();
 
             vec = new Word2Vec.Builder().minWordFrequency(5).vocabCache(cache)
                     .windowSize(5)
