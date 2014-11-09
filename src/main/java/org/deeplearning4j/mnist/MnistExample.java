@@ -41,10 +41,9 @@ public class MnistExample {
                 .hiddenLayerSizes(new int[]{500, 250, 200})
                 .build();
 
-        d.getLayers()[0].conf().setRenderWeightsEveryNumEpochs(10);
+        d.getLayers()[0].conf().setRenderWeightIterations(10);
 
-        d.getOutputLayer().conf().setActivationFunction(Activations.softMaxRows());
-        d.getOutputLayer().conf().setLossFunction(LossFunctions.LossFunction.MCXENT);
+        NeuralNetConfiguration.setClassifier(d.getOutputLayer().conf());
         MnistDataFetcher fetcher = new MnistDataFetcher(true);
         fetcher.fetch(10);
         DataSet d2 = fetcher.next();

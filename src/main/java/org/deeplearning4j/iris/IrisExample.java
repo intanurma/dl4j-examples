@@ -34,23 +34,20 @@ public class IrisExample {
         RandomGenerator gen = new MersenneTwister(123);
 
         NeuralNetConfiguration conf = new NeuralNetConfiguration.Builder()
-                .momentum(5e-1f)
-                .regularization(true)
-                .regularizationCoefficient(2e-4f).dist(Distributions.uniform(gen))
-                .activationFunction(Activations.tanh()).iterations(100)
-                .weightInit(WeightInit.DISTRIBUTION)
-                .lossFunction(LossFunctions.LossFunction.RECONSTRUCTION_CROSSENTROPY).rng(gen)
+                .iterations(100)
+                .weightInit(WeightInit.DISTRIBUTION).dist(Distributions.normal(gen,1e-2)).render(10)
+                .lossFunction(LossFunctions.LossFunction.RECONSTRUCTION_CROSSENTROPY).activationFunction(Activations.tanh())
+                .rng(gen).visibleUnit(RBM.VisibleUnit.GAUSSIAN).hiddenUnit(RBM.HiddenUnit.RECTIFIED)
                 .learningRate(1e-1f).nIn(4).nOut(3).build();
 
 
         DBN d = new DBN.Builder()
                 .configure(conf)
-                .hiddenLayerSizes(new int[]{3}).forceEpochs()
+                .hiddenLayerSizes(new int[]{3,2})
                 .build();
 
 
-        d.getOutputLayer().conf().setActivationFunction(Activations.softMaxRows());
-        d.getOutputLayer().conf().setLossFunction(LossFunctions.LossFunction.MCXENT);
+        NeuralNetConfiguration.setClassifier(d.getOutputLayer().conf());
 
         DataSetIterator iter = new IrisDataSetIterator(150, 150);
 

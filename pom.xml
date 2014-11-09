@@ -1,15 +1,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.deeplearning4j</groupId>
-        <artifactId>deeplearning4j-parent</artifactId>
-        <version>0.0.3.2.3-SNAPSHOT</version>
-    </parent>
+
+    <groupId>org.deeplearning4j</groupId>
     <artifactId>deeplearning4j-examples</artifactId>
+    <version>0.0.3.2.4-SNAPSHOT</version>
+
     <name>DeepLearning4j Examples</name>
     <description>Examples of training different data sets</description>
     <properties>
         <nd4j.version>0.0.3.5.3-SNAPSHOT</nd4j.version>
+        <dl4j.version>0.0.3.2.4-SNAPSHOT</dl4j.version>
     </properties>
 
     <distributionManagement>
@@ -67,25 +67,13 @@
         <dependency>
             <groupId>org.deeplearning4j</groupId>
             <artifactId>deeplearning4j-core</artifactId>
-            <version>${project.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>slf4j-log4j12</artifactId>
-                    <groupId>org.slf4j</groupId>
-                </exclusion>
-            </exclusions>
+            <version>${dl4j.version}</version>
         </dependency>
         <dependency>
             <groupId>org.deeplearning4j</groupId>
             <artifactId>deeplearning4j-nlp</artifactId>
-            <version>${project.version}</version>
+            <version>${dl4j.version}</version>
 
-            <exclusions>
-                <exclusion>
-                    <artifactId>slf4j-log4j12</artifactId>
-                    <groupId>org.slf4j</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.nd4j</groupId>

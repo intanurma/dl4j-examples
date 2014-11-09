@@ -33,7 +33,7 @@ public class Word2VecPlotExample {
     public void train() throws Exception {
         VocabCache cache;
         if (vec == null && !new File("vec.ser").exists()) {
-            cache = new InMemoryLookupCache(100, true, 0.025f);
+            cache = new InMemoryLookupCache.Builder().vectorLength(100).build();
 
             vec = new Word2Vec.Builder().minWordFrequency(5).vocabCache(cache)
                     .windowSize(5)
