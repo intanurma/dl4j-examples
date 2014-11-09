@@ -24,9 +24,6 @@ public class MnistExample {
 
     private static Logger log = LoggerFactory.getLogger(MnistExample.class);
 
-
-
-
     public static void main(String[] args) throws Exception {
         RandomGenerator gen = new MersenneTwister(123);
 
@@ -35,7 +32,6 @@ public class MnistExample {
                 .withActivationType(NeuralNetConfiguration.ActivationType.SAMPLE)
                 .lossFunction(LossFunctions.LossFunction.RECONSTRUCTION_CROSSENTROPY).rng(gen)
                 .learningRate(1e-1f).nIn(784).nOut(10).build();
-
 
         DBN d = new DBN.Builder().configure(conf)
                 .hiddenLayerSizes(new int[]{500, 250, 200})
@@ -50,7 +46,6 @@ public class MnistExample {
 
         d.fit(d2);
 
-
         INDArray predict2 = d.output(d2.getFeatureMatrix());
 
         Evaluation eval = new Evaluation();
@@ -58,8 +53,6 @@ public class MnistExample {
         log.info(eval.stats());
         int[] predict = d.predict(d2.getFeatureMatrix());
         log.info("Predict " + Arrays.toString(predict));
-
+        
     }
-
-
 }
