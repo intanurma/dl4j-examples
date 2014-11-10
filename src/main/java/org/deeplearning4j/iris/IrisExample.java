@@ -35,15 +35,15 @@ public class IrisExample {
 
         NeuralNetConfiguration conf = new NeuralNetConfiguration.Builder()
                 .iterations(100)
-                .weightInit(WeightInit.DISTRIBUTION).dist(Distributions.normal(gen,1e-2)).render(10)
+                .weightInit(WeightInit.DISTRIBUTION).dist(Distributions.normal(gen,1e-3)).constrainGradientToUnitNorm(false)
                 .lossFunction(LossFunctions.LossFunction.RECONSTRUCTION_CROSSENTROPY).activationFunction(Activations.tanh())
                 .rng(gen).visibleUnit(RBM.VisibleUnit.GAUSSIAN).hiddenUnit(RBM.HiddenUnit.RECTIFIED)
-                .learningRate(1e-1f).nIn(4).nOut(3).build();
+                .learningRate(1e-3f).nIn(4).nOut(3).build();
 
 
         DBN d = new DBN.Builder()
                 .configure(conf)
-                .hiddenLayerSizes(new int[]{3,2})
+                .hiddenLayerSizes(new int[]{3})
                 .build();
 
 
