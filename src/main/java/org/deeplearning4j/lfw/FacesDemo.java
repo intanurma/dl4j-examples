@@ -34,8 +34,8 @@ public class FacesDemo {
 
 
         NeuralNetConfiguration conf = new NeuralNetConfiguration.Builder()
-                .visibleUnit(RBM.VisibleUnit.GAUSSIAN).render(10)
-                .hiddenUnit(RBM.HiddenUnit.RECTIFIED)
+                .visibleUnit(RBM.VisibleUnit.GAUSSIAN).weightInit(WeightInit.DISTRIBUTION).dist(Distributions.normal(gen,1e-6))
+                .hiddenUnit(RBM.HiddenUnit.RECTIFIED).constrainGradientToUnitNorm(true).activationFunction(Activations.tanh())
                 .lossFunction(LossFunctions.LossFunction.RECONSTRUCTION_CROSSENTROPY).rng(gen)
                 .learningRate(1e-3f).nIn(fetcher.inputColumns()).nOut(fetcher.totalOutcomes()).build();
 
@@ -44,12 +44,13 @@ public class FacesDemo {
                 .hiddenLayerSizes(new int[]{500,250,100})
                 .build();
 
+        d.getInputLayer().conf().setRenderWeightIterations(5);
         NeuralNetConfiguration.setClassifier(d.getOutputLayer().conf());
 
         while(fetcher.hasNext()) {
             DataSet next = fetcher.next();
             next.normalizeZeroMeanZeroUnitVariance();
-            d.fit(fetcher.next());
+            d.fit(next);
 
         }
 
