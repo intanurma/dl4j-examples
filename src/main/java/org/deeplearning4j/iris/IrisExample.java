@@ -37,7 +37,7 @@ public class IrisExample {
                 .iterations(100)
                 .weightInit(WeightInit.DISTRIBUTION).dist(Distributions.normal(gen,1e-3)).constrainGradientToUnitNorm(false)
                 .lossFunction(LossFunctions.LossFunction.RECONSTRUCTION_CROSSENTROPY).activationFunction(Activations.tanh())
-                .rng(gen).visibleUnit(RBM.VisibleUnit.GAUSSIAN).hiddenUnit(RBM.HiddenUnit.RECTIFIED)
+                .rng(gen).visibleUnit(RBM.VisibleUnit.GAUSSIAN).hiddenUnit(RBM.HiddenUnit.RECTIFIED).dropOut(0.3f)
                 .learningRate(1e-3f).nIn(4).nOut(3).build();
 
 

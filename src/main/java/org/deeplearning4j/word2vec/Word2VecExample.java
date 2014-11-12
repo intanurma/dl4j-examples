@@ -67,6 +67,7 @@ public class Word2VecExample {
             vec = SerializationUtils.readObject(new File(VEC_PATH));
             cache = SerializationUtils.readObject(new File(CACHE_SER));
             vec.setCache(cache);
+
             for(String s : cache.words()) {
                 System.out.println(s);
             }

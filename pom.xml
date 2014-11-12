@@ -3,13 +3,13 @@
 
     <groupId>org.deeplearning4j</groupId>
     <artifactId>deeplearning4j-examples</artifactId>
-    <version>0.0.3.2.4-SNAPSHOT</version>
+    <version>0.0.3.2.5</version>
 
     <name>DeepLearning4j Examples</name>
     <description>Examples of training different data sets</description>
     <properties>
         <nd4j.version>0.0.3.5.3-SNAPSHOT</nd4j.version>
-        <dl4j.version>0.0.3.2.4-SNAPSHOT</dl4j.version>
+        <dl4j.version>0.0.3.2.5-SNAPSHOT</dl4j.version>
     </properties>
 
 

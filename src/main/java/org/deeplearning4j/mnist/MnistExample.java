@@ -27,21 +27,22 @@ public class MnistExample {
     public static void main(String[] args) throws Exception {
         RandomGenerator gen = new MersenneTwister(123);
 
-        NeuralNetConfiguration conf = new NeuralNetConfiguration.Builder().render(10)
-                .momentum(5e-1f)
+        NeuralNetConfiguration conf = new NeuralNetConfiguration.Builder()
+                .momentum(5e-1f).constrainGradientToUnitNorm(false).iterations(1000)
                 .withActivationType(NeuralNetConfiguration.ActivationType.SAMPLE)
                 .lossFunction(LossFunctions.LossFunction.RECONSTRUCTION_CROSSENTROPY).rng(gen)
                 .learningRate(1e-1f).nIn(784).nOut(10).build();
 
         DBN d = new DBN.Builder().configure(conf)
-                .hiddenLayerSizes(new int[]{500, 250, 200})
+                .hiddenLayerSizes(new int[]{500, 250, 100})
                 .build();
 
-        d.getLayers()[0].conf().setRenderWeightIterations(10);
-
+        d.getOutputLayer().conf().setNumIterations(10);
         NeuralNetConfiguration.setClassifier(d.getOutputLayer().conf());
+
+
         MnistDataFetcher fetcher = new MnistDataFetcher(true);
-        fetcher.fetch(10);
+        fetcher.fetch(1000);
         DataSet d2 = fetcher.next();
 
         d.fit(d2);
